@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity(), RecognitionListener {
         progressBar = findViewById(R.id.progressBar)
         toggleButton = findViewById(R.id.toggleButton)
         progressBar.visibility = View.VISIBLE
+
+        returnedText.movementMethod = ScrollingMovementMethod()
 
         speech = SpeechRecognizer.createSpeechRecognizer(this)
         Log.i(logTag, "isRecognitionAvailable: " + SpeechRecognizer.isRecognitionAvailable(this))
@@ -89,13 +92,12 @@ class MainActivity : AppCompatActivity(), RecognitionListener {
     }
     override fun onBufferReceived(buffer: ByteArray?) {
         Log.i(logTag, "onBuffer")
-        Log.i(logTag, buffer.toString())
     }
     override fun onPartialResults(partialResults: Bundle?) {
         Log.i(logTag, "onPartial")
     }
     override fun onEvent(eventType: Int, params: Bundle?) {
-        Log.i(logTag, "on event")
+        Log.i(logTag, "onEvent")
     }
     override fun onBeginningOfSpeech() {
         Log.i(logTag, "onBeginningOfSpeech")
